@@ -36,3 +36,10 @@ bin/
 .vscode/
 .idea/
 *.swp
+
+# Generated Protocol Buffers files
+*.pb.go
+wire_gen.go
+
+# Go dependency summary
+go.sum
