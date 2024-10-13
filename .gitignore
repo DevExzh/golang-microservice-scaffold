@@ -39,6 +39,7 @@ bin/
 
 # Generated Protocol Buffers files
 *.pb.go
+*.pb.validate.go
 wire_gen.go
 
 # Go dependency summary
