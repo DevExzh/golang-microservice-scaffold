@@ -13,7 +13,6 @@ import (
 	"example/internal/service"
 
 	"github.com/go-kratos/kratos/v2"
-	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 )
 
@@ -21,7 +20,7 @@ import (
 //
 // The following code is not the final production code, it just declares the dependency providers and the
 // injection code is generated in the file `wire_gen.go`, which implements the wiring process.
-func wireApp(*conf.Registry, *conf.Server, *conf.Data, *conf.Telemetry, log.Logger) (*kratos.App, func(), error) {
+func wireApp(*conf.Registry, *conf.Server, *conf.Data, *conf.Telemetry) (*kratos.App, func(), error) {
 	panic(
 		wire.Build( // Finally replaced by the real initialization code, the wire.Build call here is just a placeholder
 			server.ProviderSet,  // Server that responses to the client requests

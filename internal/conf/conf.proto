@@ -69,11 +69,17 @@ message Traces {
 }
 
 message Log {
-  string driver = 1;
-  string addr = 2;
+  string path = 1;
   enum Level {
     Debug = 0;
     Info = 1;
+    Warn = 2;
+    Error = 3;
+    Panic = 4;
+    Fatal = 5;
   }
-  Level level = 3;
+  Level level = 2;
+  uint32 max_age = 3;
+  uint32 max_backups = 4;
+  uint32 max_size = 5;
 }

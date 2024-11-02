@@ -78,7 +78,7 @@ func init() {
 //   - Authorization: Json Web Token
 //
 // DO NOT HARD CODE CONFIG OR DEPENDENCIES
-func newApp(logger log.Logger, reg registry.Registrar, gs *grpc.Server, hs *http.Server) *kratos.App {
+func newApp(reg registry.Registrar, gs *grpc.Server, hs *http.Server) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),           // A service ID should be unique in the global scope
 		kratos.Name(Name),       // A service name should be human-readable and clear enough to ensure maintainability
@@ -86,7 +86,6 @@ func newApp(logger log.Logger, reg registry.Registrar, gs *grpc.Server, hs *http
 		kratos.Metadata(map[string]string{ // Provides metadata about this service
 			"description": "The service provides a basic microservice framework.",
 		}),
-		kratos.Logger(logger),
 		kratos.Server( // The service runs both HTTP and GRPC server simultaneously.
 			gs, hs, // Intro-service calls should utilize GRPC server while the front end uses HTTP server
 		),
@@ -122,11 +121,10 @@ func main() {
 		panic(err)
 	}
 
-	logger := NewLogger(bc.Telemetry.Log.Driver, bc.Telemetry.Log.Addr)
-	log.SetLogger(logger)
+	log.SetLogger(NewLogger(bc.Telemetry.Log))
 
 	// Inject dependencies into the service
-	app, cleanup, err := wireApp(bc.Registry, bc.Server, bc.Data, bc.Telemetry, logger)
+	app, cleanup, err := wireApp(bc.Registry, bc.Server, bc.Data, bc.Telemetry)
 	if err != nil {
 		panic(err)
 	}
