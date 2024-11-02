@@ -32,7 +32,7 @@ kratos proto client api/server/server.proto
 kratos proto server api/server/server.proto -t internal/service
 
 go build -o ./bin/ ./...
-./bin/example -conf ./configs
+./bin/server -conf ./configs
 ```
 
 ## Docker
